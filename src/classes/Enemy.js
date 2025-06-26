@@ -1,6 +1,7 @@
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, health, attackDamage, experienceReward, speed) {
         super(scene, x, y, texture, frame);
+        this.scene = scene; // Store scene reference
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -29,7 +30,16 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     die() {
         this.disableBody(true, true); // Disable body and hide
-        // Potentially play death animation or sound
+
+        // Create and play explosion animation at enemy's position
+        const explosion = this.scene.add.sprite(this.x, this.y, 'explosion');
+        explosion.play('explode');
+
+        // Destroy explosion sprite after animation completes
+        explosion.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+            explosion.destroy();
+        });
+
         console.log("Enemy defeated!");
         this.scene.events.emit('enemyKilled', this.experienceReward); // Emit event for experience gain
     }
