@@ -13,7 +13,6 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.speed = speed;
 
         this.setCollideWorldBounds(true);
-        this.setBounce(1); // Example: make enemies bounce off walls
     }
 
     takeDamage(amount) {
@@ -46,9 +45,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
-        // Example: Simple enemy movement (e.g., towards player or random)
-        // This would be more complex in a real game, involving AI
-        // For now, let's just have them move randomly or stay put
-        // this.setVelocityX(this.speed);
+        // Simple movement: move towards the left
+        this.setVelocityX(-this.speed);
     }
 }
