@@ -6,7 +6,7 @@ export class Start extends Phaser.Scene {
 
     preload() {
         this.load.image('background', 'assets/space.png');
-        this.load.image('logo', 'assets/phaser.png');
+        this.load.image('explosion', 'assets/explosion.png');
 
         //  The ship sprite is CC0 from https://ansimuz.itch.io - check out his other work!
         this.load.spritesheet('ship', 'assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
@@ -15,7 +15,7 @@ export class Start extends Phaser.Scene {
     create() {
         this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
 
-        const logo = this.add.image(640, 200, 'logo');
+        const explosion = this.add.image(640, 200, 'explosion');
 
         const ship = this.add.sprite(640, 360, 'ship');
 
@@ -29,7 +29,7 @@ export class Start extends Phaser.Scene {
         ship.play('fly');
 
         this.tweens.add({
-            targets: logo,
+            targets: explosion,
             y: 400,
             duration: 1500,
             ease: 'Sine.inOut',
