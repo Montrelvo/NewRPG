@@ -9,6 +9,12 @@ const config = {
     height: 720,
     backgroundColor: '#000000',
     pixelArt: false,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false // Set to true for debugging physics bodies
+        }
+    },
     scene: [
         Start
     ],
