@@ -6,7 +6,7 @@ export class Start extends Phaser.Scene {
 
     preload() {
         this.load.image('background', 'assets/space.png');
-        this.load.image('explosion', 'assets/explosion.png');
+        this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 64, frameHeight: 64 });
 
         //  The ship sprite is CC0 from https://ansimuz.itch.io - check out his other work!
         this.load.spritesheet('ship', 'assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
@@ -15,7 +15,7 @@ export class Start extends Phaser.Scene {
     create() {
         this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
 
-        const explosion = this.add.image(640, 200, 'explosion');
+        const explosion = this.add.sprite(640, 200, 'explosion');
 
         const ship = this.add.sprite(640, 360, 'ship');
 
@@ -28,14 +28,14 @@ export class Start extends Phaser.Scene {
 
         ship.play('fly');
 
-        this.tweens.add({
-            targets: explosion,
-            y: 400,
-            duration: 1500,
-            ease: 'Sine.inOut',
-            yoyo: true,
-            loop: -1
+        explosion.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 15 }), // Assuming 16 frames for explosion
+            frameRate: 20,
+            repeat: -1
         });
+
+        explosion.play('explode');
     }
 
     update() {
